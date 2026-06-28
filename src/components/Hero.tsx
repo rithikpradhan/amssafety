@@ -256,7 +256,7 @@ export default function Hero() {
           zIndex: 10,
           perspective: '1000px',
           willChange: 'transform',
-          opacity: 0,
+          opacity: 1,
         }}
       >
         {renderSplitText('AMS')}
@@ -279,7 +279,7 @@ export default function Hero() {
           zIndex: 10,
           perspective: '1000px',
           willChange: 'transform',
-          opacity: 0,
+          opacity: 1,
         }}
       >
         {renderSplitText('Safety')}

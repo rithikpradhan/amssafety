@@ -24,13 +24,10 @@ export default function RootLayout({
         {/* ── Preconnect to Google Fonts (non-blocking) ── */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        {/* Load DM Sans asynchronously — does NOT block first render */}
+        {/* Load DM Sans with display=swap — non-blocking, text shows immediately with fallback font */}
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap"
-          media="print"
-          // @ts-expect-error — onload string attribute trick for async CSS
-          onLoad="this.media='all'"
         />
         {/* Preload hero helmet image — fixes LCP 12.6s → dramatically lower */}
         <link

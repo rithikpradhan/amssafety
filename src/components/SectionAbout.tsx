@@ -127,12 +127,12 @@ export default function SectionAbout() {
           </div>
         </div>
 
-        {/* ── 2. Bottom 3 Showcase Cards Grid (Curtain Slide Scroll Reveal) ── */}
+        {/* ── 2. Bottom 3 Showcase Cards Grid (Clean Authentic Photography) ── */}
         <div
           ref={cardsRef}
           className="about-cards-grid"
         >
-          {/* Card 1 */}
+          {/* Card 1: Authentic Real-World Industrial Engineering Photography */}
           <div
             className="about-card"
             style={{
@@ -146,77 +146,16 @@ export default function SectionAbout() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/about-team-1.png"
-              alt="AMS Safety Engineering Team Blueprint Session"
+              alt="AMS Safety Industrial Engineering Team"
               style={{
                 width: '100%',
                 height: '100%',
                 objectFit: 'cover',
               }}
             />
-            <div
-              style={{
-                position: 'absolute',
-                inset: '16px',
-                border: '1px solid rgba(255, 255, 255, 0.4)',
-                borderRadius: '20px',
-                pointerEvents: 'none',
-              }}
-            />
-            <div
-              style={{
-                position: 'absolute',
-                top: '45%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-                width: '48px',
-                height: '48px',
-                borderRadius: '50%',
-                backgroundColor: 'rgba(255, 255, 255, 0.25)',
-                backdropFilter: 'blur(10px)',
-                border: '1px solid rgba(255, 255, 255, 0.5)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#ffffff',
-                fontWeight: '600',
-                fontSize: '18px',
-              }}
-            >
-              AMS
-            </div>
-            <div
-              style={{
-                position: 'absolute',
-                bottom: '24px',
-                left: '24px',
-                right: '24px',
-                display: 'flex',
-                gap: '10px',
-                flexWrap: 'wrap',
-                zIndex: 2,
-              }}
-            >
-              {['Safety Research', 'Impact Analysis', 'Global Compliance'].map((tag) => (
-                <span
-                  key={tag}
-                  style={{
-                    padding: '8px 16px',
-                    borderRadius: '30px',
-                    backgroundColor: 'rgba(17, 24, 39, 0.65)',
-                    backdropFilter: 'blur(12px)',
-                    color: '#ffffff',
-                    fontSize: '12px',
-                    fontWeight: '400',
-                    border: '1px solid rgba(255, 255, 255, 0.15)',
-                  }}
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
           </div>
 
-          {/* Card 2 */}
+          {/* Card 2: Typography Statement Card */}
           <div
             className="about-card text-card-bg"
             style={{
@@ -275,7 +214,7 @@ export default function SectionAbout() {
             </div>
           </div>
 
-          {/* Card 3 */}
+          {/* Card 3: Authentic Real-World Inspection Specialist Photography */}
           <div
             className="about-card"
             style={{
@@ -296,37 +235,6 @@ export default function SectionAbout() {
                 objectFit: 'cover',
               }}
             />
-            <div
-              style={{
-                position: 'absolute',
-                inset: '16px',
-                border: '1px solid rgba(255, 255, 255, 0.4)',
-                borderRadius: '20px',
-                pointerEvents: 'none',
-              }}
-            />
-            <div
-              style={{
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-                width: '52px',
-                height: '52px',
-                borderRadius: '50%',
-                backgroundColor: 'rgba(230, 57, 70, 0.85)',
-                backdropFilter: 'blur(10px)',
-                border: '1px solid rgba(255, 255, 255, 0.5)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#ffffff',
-                fontWeight: '600',
-                fontSize: '18px',
-              }}
-            >
-              ★
-            </div>
           </div>
         </div>
       </div>

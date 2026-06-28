@@ -13,7 +13,7 @@ export default function Hero() {
   const helmetRef = useRef<HTMLDivElement>(null);
   const helmetImgRef = useRef<HTMLImageElement>(null);
   const infoRef = useRef<HTMLDivElement>(null);
-  const topRightRef = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -98,7 +98,7 @@ export default function Hero() {
         0.2
       );
 
-      // Left-bottom info entry reveal
+      // Subtext info block entry reveal
       if (infoRef.current) {
         tl.fromTo(
           infoRef.current,
@@ -108,13 +108,13 @@ export default function Hero() {
         );
       }
 
-      // Top-right technical stats reveal
-      if (topRightRef.current) {
+      // CTA buttons reveal
+      if (ctaRef.current) {
         tl.fromTo(
-          topRightRef.current,
-          { opacity: 0, y: -40 },
-          { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out' },
-          0.65
+          ctaRef.current,
+          { opacity: 0, y: 30, scale: 0.9 },
+          { opacity: 1, y: 0, scale: 1, duration: 1.0, ease: 'back.out(1.5)' },
+          0.7
         );
       }
 
@@ -181,6 +181,11 @@ export default function Hero() {
         {char === ' ' ? '\u00A0' : char}
       </span>
     ));
+  };
+
+  const scrollToSection = (targetId: string) => {
+    const el = document.getElementById(targetId);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -277,10 +282,10 @@ export default function Hero() {
         {renderSplitText('Safety')}
       </div>
 
-      {/* ── Left-Bottom Information Block (Desktop Only) ── */}
+      {/* ── Restored Subtext Information Block (Bottom Left) ── */}
       <div
         ref={infoRef}
-        className="hero-info-block desktop-only-matrix"
+        className="hero-info-block"
         style={{
           position: 'absolute',
           fontFamily: "'Parisian', 'Playfair Display', 'Times New Roman', serif",
@@ -300,41 +305,72 @@ export default function Hero() {
         </p>
       </div>
 
-      {/* ── Top-Right Visual Technical Specification Matrix (Desktop Only) ── */}
+      {/* ── Call To Action (CTA) Buttons ── */}
       <div
-        ref={topRightRef}
-        className="hero-top-right-matrix desktop-only-matrix"
+        ref={ctaRef}
+        className="hero-cta-group"
         style={{
           position: 'absolute',
+          bottom: '44px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          zIndex: 20,
           display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'flex-end',
-          color: '#212529',
-          zIndex: 10,
-          pointerEvents: 'none',
-          userSelect: 'none',
-          willChange: 'transform',
-          opacity: 1,
+          alignItems: 'center',
+          gap: '16px',
+          willChange: 'transform, opacity',
         }}
       >
-        <div style={{ textAlign: 'right' }}>
-          <span className="stat-number">50 kJ</span>
-          <span className="stat-label">Impact Resistance</span>
-        </div>
+        <button
+          onClick={() => scrollToSection('products')}
+          className="btn-primary"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '10px',
+            padding: '14px 28px',
+            backgroundColor: '#e63946',
+            color: '#ffffff',
+            border: 'none',
+            borderRadius: '40px',
+            fontFamily: 'var(--font-halyard-display-variable)',
+            fontSize: '15px',
+            fontWeight: '600',
+            cursor: 'pointer',
+            boxShadow: '0 8px 25px rgba(230, 57, 70, 0.25)',
+            transition: 'all 0.3s ease',
+          }}
+        >
+          Explore Products
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7" />
+            <polyline points="7 7 17 7 17 17" />
+          </svg>
+        </button>
 
-        <div className="stat-divider" />
-
-        <div style={{ textAlign: 'right' }}>
-          <span className="stat-number">0.4 kg</span>
-          <span className="stat-label">Featherweight Build</span>
-        </div>
-
-        <div className="stat-divider" />
-
-        <div style={{ textAlign: 'right' }}>
-          <span className="stat-number">100%</span>
-          <span className="stat-label">Dielectric Tested</span>
-        </div>
+        <button
+          onClick={() => scrollToSection('about-us')}
+          className="btn-secondary"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            padding: '14px 26px',
+            backgroundColor: 'rgba(255, 255, 255, 0.85)',
+            backdropFilter: 'blur(10px)',
+            color: '#111827',
+            border: '1.5px solid #e5e7eb',
+            borderRadius: '40px',
+            fontFamily: 'var(--font-halyard-display-variable)',
+            fontSize: '15px',
+            fontWeight: '500',
+            cursor: 'pointer',
+            boxShadow: '0 4px 15px rgba(0, 0, 0, 0.04)',
+            transition: 'all 0.3s ease',
+          }}
+        >
+          About Us
+        </button>
       </div>
 
       <style jsx>{`
@@ -368,45 +404,25 @@ export default function Hero() {
           font-size: clamp(12px, 1.1vw, 16px);
         }
 
-        .hero-top-right-matrix {
-          top: clamp(70px, 10vh, 130px);
-          right: clamp(50px, 8vw, 120px);
-          gap: clamp(12px, 1.8vh, 22px);
+        .btn-primary:hover {
+          background-color: #d62839 !important;
+          transform: translateY(-2px);
+          box-shadow: 0 12px 30px rgba(230, 57, 70, 0.35) !important;
         }
-        .stat-number {
-          font-family: 'Parisian', 'Playfair Display', serif;
-          font-size: clamp(28px, 3.2vw, 48px);
-          font-weight: 400;
-          color: #e63946;
-          line-height: 1;
-          display: block;
-        }
-        .stat-label {
-          font-family: var(--font-halyard-display-variable);
-          font-size: clamp(10px, 0.85vw, 12px);
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
-          color: #e63946;
-          opacity: 0.8;
-          display: block;
-          margin-top: 2px;
-        }
-        .stat-divider {
-          width: 40px;
-          height: 1px;
-          background-color: #e63946;
-          opacity: 0.3;
-          margin: 4px 0;
+        .btn-secondary:hover {
+          border-color: #111827 !important;
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08) !important;
         }
 
-        /* Mobile Layout & Proportions */
+        /* Mobile Layout & Proportions - Clean Balanced Composition with CTAs */
         @media (max-width: 768px) {
-          .desktop-only-matrix {
+          .hero-info-block {
             display: none !important;
           }
 
           .hero-ams-text {
-            top: 22vh !important;
+            top: 20vh !important;
             left: 0 !important;
             right: 0 !important;
             margin: 0 auto !important;
@@ -416,33 +432,47 @@ export default function Hero() {
           }
 
           .hero-helmet-box {
-            width: clamp(330px, 86vw, 460px) !important;
-            height: clamp(330px, 86vw, 460px) !important;
+            width: clamp(320px, 84vw, 440px) !important;
+            height: clamp(320px, 84vw, 440px) !important;
           }
 
           .hero-safety-text {
-            bottom: 20vh !important;
+            bottom: 18vh !important;
             left: 0 !important;
             right: 0 !important;
             margin: 0 auto !important;
             font-size: clamp(80px, 22vw, 135px) !important;
             text-align: center !important;
             width: 100% !important;
+          }
+
+          .hero-cta-group {
+            bottom: 6vh !important;
+            width: 90% !important;
+            justify-content: center !important;
           }
         }
 
         @media (max-width: 480px) {
           .hero-ams-text {
-            top: 21vh !important;
+            top: 19vh !important;
             font-size: clamp(75px, 21vw, 110px) !important;
           }
           .hero-helmet-box {
-            width: 340px !important;
-            height: 340px !important;
+            width: 330px !important;
+            height: 330px !important;
           }
           .hero-safety-text {
-            bottom: 19vh !important;
+            bottom: 17vh !important;
             font-size: clamp(75px, 21vw, 110px) !important;
+          }
+          .hero-cta-group {
+            bottom: 5vh !important;
+            gap: 10px !important;
+          }
+          .btn-primary, .btn-secondary {
+            padding: 12px 20px !important;
+            font-size: 14px !important;
           }
         }
       `}</style>

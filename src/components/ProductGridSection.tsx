@@ -312,6 +312,8 @@ export default function ProductGridSection() {
                     src={product.image}
                     alt={product.name}
                     className="card-img"
+                    width={180}
+                    height={180}
                     loading="lazy"
                     decoding="async"
                     style={{

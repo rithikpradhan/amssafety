@@ -225,6 +225,8 @@ export default function Hero() {
           ref={helmetImgRef}
           src="/ams-product-removebg-preview.webp"
           alt="AMS Safety Hard Hat"
+          width={640}
+          height={640}
           fetchPriority="high"
           loading="eager"
           decoding="async"

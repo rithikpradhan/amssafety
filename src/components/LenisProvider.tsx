@@ -19,14 +19,26 @@ export default function LenisProvider({ children }: { children: React.ReactNode 
     // Connect Lenis to GSAP ScrollTrigger
     lenis.on('scroll', ScrollTrigger.update);
 
-    gsap.ticker.add((time) => {
+    // Named RAF callback so we can cleanly remove it on unmount
+    const rafCallback = (time: number) => {
       lenis.raf(time * 1000);
-    });
+    };
+    gsap.ticker.add(rafCallback);
     gsap.ticker.lagSmoothing(0);
+
+    // bfcache compatibility — pause scroll on navigation, resume on bfcache restore
+    const handlePageHide = () => lenis.stop();
+    const handlePageShow = (e: PageTransitionEvent) => {
+      if (e.persisted) lenis.start();
+    };
+    window.addEventListener('pagehide', handlePageHide);
+    window.addEventListener('pageshow', handlePageShow);
 
     return () => {
       lenis.destroy();
-      gsap.ticker.remove((time) => lenis.raf(time * 1000));
+      gsap.ticker.remove(rafCallback);
+      window.removeEventListener('pagehide', handlePageHide);
+      window.removeEventListener('pageshow', handlePageShow);
     };
   }, []);
 

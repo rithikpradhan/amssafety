@@ -147,6 +147,8 @@ export default function SectionAbout() {
             <img
               src="/about-team-1.webp"
               alt="AMS Safety Industrial Engineering Team"
+              width={600}
+              height={500}
               loading="lazy"
               decoding="async"
               style={{
@@ -231,6 +233,8 @@ export default function SectionAbout() {
             <img
               src="/about-team-2.webp"
               alt="AMS Safety Research and Testing Facility"
+              width={600}
+              height={500}
               loading="lazy"
               decoding="async"
               style={{

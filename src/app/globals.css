@@ -3,10 +3,10 @@
   font-family: 'Parisian';
   font-style: normal;
   font-weight: 400;
-  font-display: swap;
+  font-display: optional;
   src: url('/fonts/PARISIAN.woff') format('woff');
 }
-/* DM Sans is loaded via <link> preconnect in layout.tsx for non-blocking delivery */
+/* DM Sans is injected async after first paint via splash screen script */
 
 @tailwind base;
 @tailwind components;

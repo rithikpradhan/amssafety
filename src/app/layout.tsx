@@ -21,15 +21,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* ── Preconnect to Google Fonts (non-blocking) ── */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        {/* ── Preconnect: establish connections early before font requests ── */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        {/* Load DM Sans with display=swap — non-blocking, text shows immediately with fallback font */}
+
+        {/* ── Preload self-hosted Parisian font — loads before first paint, eliminates CLS ── */}
         <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap"
+          rel="preload"
+          as="font"
+          href="/fonts/PARISIAN.woff"
+          type="font/woff"
+          crossOrigin="anonymous"
         />
-        {/* Preload hero helmet image — fixes LCP 12.6s → dramatically lower */}
+
+        {/* ── Preload LCP hero image — browser fetches at highest priority ── */}
         <link
           rel="preload"
           as="image"
@@ -82,6 +87,14 @@ export default function RootLayout({
                   if (splash) {
                     splash.classList.add('ams-hide');
                     setTimeout(function() { splash.style.display = 'none'; }, 450);
+                  }
+                  // Inject DM Sans AFTER first paint — zero render blocking
+                  if (!document.querySelector('link[data-font="dm-sans"]')) {
+                    var link = document.createElement('link');
+                    link.rel = 'stylesheet';
+                    link.setAttribute('data-font', 'dm-sans');
+                    link.href = 'https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap';
+                    document.head.appendChild(link);
                   }
                 }
                 // Hide after window load + small buffer for GSAP to init

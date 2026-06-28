@@ -34,7 +34,7 @@ const PRODUCTS: Product[] = [
     price: '$150.50',
     stock: 544,
     sold: 256,
-    image: '/ams-product-removebg-preview.png',
+    image: '/ams-product-removebg-preview.webp',
   },
   {
     id: '2',
@@ -43,7 +43,7 @@ const PRODUCTS: Product[] = [
     price: '$160.40',
     stock: 544,
     sold: 256,
-    image: '/prod-boots.png',
+    image: '/prod-boots.webp',
   },
   {
     id: '3',
@@ -52,7 +52,7 @@ const PRODUCTS: Product[] = [
     price: '$120.30',
     stock: 544,
     sold: 256,
-    image: '/prod-extinguisher.png',
+    image: '/prod-extinguisher.webp',
   },
   {
     id: '4',
@@ -61,7 +61,7 @@ const PRODUCTS: Product[] = [
     price: '$120.99',
     stock: 544,
     sold: 256,
-    image: '/prod-jacket.png',
+    image: '/prod-jacket.webp',
   },
   {
     id: '5',
@@ -70,7 +70,7 @@ const PRODUCTS: Product[] = [
     price: '$150.50',
     stock: 544,
     sold: 256,
-    image: '/prod-harness.png',
+    image: '/prod-harness.webp',
   },
   {
     id: '6',
@@ -79,7 +79,7 @@ const PRODUCTS: Product[] = [
     price: '$110.20',
     stock: 544,
     sold: 256,
-    image: '/prod-earmuffs.png',
+    image: '/prod-earmuffs.webp',
   },
   {
     id: '7',
@@ -88,7 +88,7 @@ const PRODUCTS: Product[] = [
     price: '$85.50',
     stock: 544,
     sold: 256,
-    image: '/prod-glasses.png',
+    image: '/prod-glasses.webp',
   },
   {
     id: '8',
@@ -97,7 +97,7 @@ const PRODUCTS: Product[] = [
     price: '$175.00',
     stock: 544,
     sold: 256,
-    image: '/ams-product-removebg-preview.png',
+    image: '/ams-product-removebg-preview.webp',
   },
 ];
 
@@ -312,6 +312,8 @@ export default function ProductGridSection() {
                     src={product.image}
                     alt={product.name}
                     className="card-img"
+                    loading="lazy"
+                    decoding="async"
                     style={{
                       maxHeight: '100%',
                       maxWidth: '100%',

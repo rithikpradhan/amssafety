@@ -217,14 +217,17 @@ export default function Hero() {
           borderRadius: '16px',
           overflow: 'hidden',
           willChange: 'transform',
-          opacity: 1,
+          opacity: 0,
         }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           ref={helmetImgRef}
-          src="/ams-product-removebg-preview.png"
+          src="/ams-product-removebg-preview.webp"
           alt="AMS Safety Hard Hat"
+          fetchPriority="high"
+          loading="eager"
+          decoding="async"
           style={{
             width: '100%',
             height: '100%',
@@ -253,7 +256,7 @@ export default function Hero() {
           zIndex: 10,
           perspective: '1000px',
           willChange: 'transform',
-          opacity: 1,
+          opacity: 0,
         }}
       >
         {renderSplitText('AMS')}
@@ -276,7 +279,7 @@ export default function Hero() {
           zIndex: 10,
           perspective: '1000px',
           willChange: 'transform',
-          opacity: 1,
+          opacity: 0,
         }}
       >
         {renderSplitText('Safety')}
@@ -289,12 +292,12 @@ export default function Hero() {
         style={{
           position: 'absolute',
           fontFamily: "'Parisian', 'Playfair Display', 'Times New Roman', serif",
-          color: '#e63946',
+          color: '#212529',
           zIndex: 10,
           pointerEvents: 'none',
           userSelect: 'none',
           willChange: 'transform',
-          opacity: 1,
+          opacity: 0,
         }}
       >
         <h3 className="info-title" style={{ fontWeight: '400', lineHeight: 1.1, marginBottom: '6px', letterSpacing: '0.01em' }}>
@@ -319,6 +322,7 @@ export default function Hero() {
           alignItems: 'center',
           gap: '16px',
           willChange: 'transform, opacity',
+          opacity: 0,
         }}
       >
         <button

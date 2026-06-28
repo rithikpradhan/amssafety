@@ -145,8 +145,10 @@ export default function SectionAbout() {
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/about-team-1.png"
+              src="/about-team-1.webp"
               alt="AMS Safety Industrial Engineering Team"
+              loading="lazy"
+              decoding="async"
               style={{
                 width: '100%',
                 height: '100%',
@@ -227,8 +229,10 @@ export default function SectionAbout() {
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/about-team-2.png"
-              alt="AMS Safety On-Site Inspection Specialists"
+              src="/about-team-2.webp"
+              alt="AMS Safety Research and Testing Facility"
+              loading="lazy"
+              decoding="async"
               style={{
                 width: '100%',
                 height: '100%',

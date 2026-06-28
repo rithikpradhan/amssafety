@@ -128,75 +128,9 @@ export default function Hero() {
         repeat: -1,
         delay: 1.8,
       });
-
-      // ── 2. Dynamic Scroll Animation ──
-      const isMobile = window.innerWidth <= 768;
-      const scrollTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 0.5,
-          invalidateOnRefresh: true,
-          onUpdate: () => {
-            if (helmetRef.current) helmetRef.current.style.opacity = '1';
-            if (amsRef.current) amsRef.current.style.opacity = '1';
-            if (safetyRef.current) safetyRef.current.style.opacity = '1';
-            if (infoRef.current) infoRef.current.style.opacity = '1';
-            if (topRightRef.current) topRightRef.current.style.opacity = '1';
-          },
-        },
-      });
-
-      scrollTl.to(
-        helmetRef.current,
-        {
-          scale: 0.9,
-          y: isMobile ? 60 : 120,
-          rotationY: isMobile ? 15 : 35,
-          ease: 'power1.inOut',
-        },
-        0
-      );
-
-      scrollTl.to(
-        amsRef.current,
-        {
-          x: isMobile ? 0 : -120,
-          y: isMobile ? -30 : -40,
-          scale: 0.92,
-          ease: 'power1.inOut',
-        },
-        0
-      );
-
-      scrollTl.to(
-        safetyRef.current,
-        {
-          x: isMobile ? 0 : 120,
-          y: isMobile ? 30 : 40,
-          scale: 0.92,
-          ease: 'power1.inOut',
-        },
-        0
-      );
-
-      if (!isMobile && infoRef.current && topRightRef.current) {
-        scrollTl.to(
-          infoRef.current,
-          { x: -80, y: 30, ease: 'power1.inOut' },
-          0
-        );
-
-        scrollTl.to(
-          topRightRef.current,
-          { x: 80, y: -30, ease: 'power1.inOut' },
-          0
-        );
-      }
     }, sectionRef);
 
-    // ── 3. Interactive 3D Parallax Mouse Tracking ──
+    // ── 2. Interactive 3D Parallax Mouse Tracking ──
     const handleMouseMove = (e: MouseEvent) => {
       if (window.scrollY > window.innerHeight * 0.8) return;
 

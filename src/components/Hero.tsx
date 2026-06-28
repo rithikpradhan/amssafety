@@ -99,36 +99,24 @@ export default function Hero() {
       );
 
       // Left-bottom info entry reveal
-      tl.fromTo(
-        infoRef.current,
-        {
-          opacity: 0,
-          y: 40,
-        },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1.1,
-          ease: 'power3.out',
-        },
-        0.6
-      );
+      if (infoRef.current) {
+        tl.fromTo(
+          infoRef.current,
+          { opacity: 0, y: 40 },
+          { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out' },
+          0.6
+        );
+      }
 
       // Top-right technical stats reveal
-      tl.fromTo(
-        topRightRef.current,
-        {
-          opacity: 0,
-          y: -40,
-        },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1.1,
-          ease: 'power3.out',
-        },
-        0.65
-      );
+      if (topRightRef.current) {
+        tl.fromTo(
+          topRightRef.current,
+          { opacity: 0, y: -40 },
+          { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out' },
+          0.65
+        );
+      }
 
       // Continuous Breathing Float Loop on Helmet Inner Image
       gsap.to(helmetImgRef.current, {
@@ -193,24 +181,16 @@ export default function Hero() {
         0
       );
 
-      if (!isMobile) {
+      if (!isMobile && infoRef.current && topRightRef.current) {
         scrollTl.to(
           infoRef.current,
-          {
-            x: -80,
-            y: 30,
-            ease: 'power1.inOut',
-          },
+          { x: -80, y: 30, ease: 'power1.inOut' },
           0
         );
 
         scrollTl.to(
           topRightRef.current,
-          {
-            x: 80,
-            y: -30,
-            ease: 'power1.inOut',
-          },
+          { x: 80, y: -30, ease: 'power1.inOut' },
           0
         );
       }
@@ -305,7 +285,7 @@ export default function Hero() {
         <img
           ref={helmetImgRef}
           src="/ams-product-removebg-preview.png"
-          alt="AMS Safety hard hat — premium industrial safety equipment"
+          alt="AMS Safety Hard Hat"
           style={{
             width: '100%',
             height: '100%',
@@ -317,7 +297,7 @@ export default function Hero() {
         />
       </div>
 
-      {/* ── AMS — top-left ── */}
+      {/* ── AMS — top-left (Black Font Color Preserved) ── */}
       <div
         ref={amsRef}
         className="hero-ams-text"
@@ -363,10 +343,10 @@ export default function Hero() {
         {renderSplitText('Safety')}
       </div>
 
-      {/* ── Left-Bottom Information Block ── */}
+      {/* ── Left-Bottom Information Block (Desktop Only) ── */}
       <div
         ref={infoRef}
-        className="hero-info-block"
+        className="hero-info-block desktop-only-matrix"
         style={{
           position: 'absolute',
           fontFamily: "'Parisian', 'Playfair Display', 'Times New Roman', serif",
@@ -386,10 +366,10 @@ export default function Hero() {
         </p>
       </div>
 
-      {/* ── Top-Right Visual Technical Specification Matrix ── */}
+      {/* ── Top-Right Visual Technical Specification Matrix (Desktop Only) ── */}
       <div
         ref={topRightRef}
-        className="hero-top-right-matrix"
+        className="hero-top-right-matrix desktop-only-matrix"
         style={{
           position: 'absolute',
           display: 'flex',
@@ -485,10 +465,9 @@ export default function Hero() {
           margin: 4px 0;
         }
 
-        /* Mobile Layout & Proportions - Pure CSS Centering without transform overrides */
+        /* Mobile Layout & Proportions */
         @media (max-width: 768px) {
-          .hero-info-block,
-          .hero-top-right-matrix {
+          .desktop-only-matrix {
             display: none !important;
           }
 

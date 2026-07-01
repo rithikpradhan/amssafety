@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 import { gsap } from 'gsap';
 
 const NAV_ITEMS = [
@@ -14,6 +15,8 @@ export default function Nav() {
   const wordmarkRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -67,9 +70,33 @@ export default function Nav() {
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     } else {
-      // Fallback searches
       const fallback = document.querySelector(`[id*="${targetId}"]`);
       if (fallback) fallback.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleNavClick = (targetId: string) => {
+    if (targetId === 'products') {
+      router.push('/shop');
+      return;
+    }
+    if (targetId === 'about-us') {
+      router.push('/about');
+      return;
+    }
+
+    if (pathname === '/') {
+      scrollToSection(targetId);
+    } else {
+      router.push(`/#${targetId}`);
+    }
+  };
+
+  const handleLogoClick = () => {
+    if (pathname === '/') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      router.push('/');
     }
   };
 
@@ -107,7 +134,7 @@ export default function Nav() {
           cursor: 'pointer',
           userSelect: 'none',
         }}
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        onClick={handleLogoClick}
         aria-label="AMS Safety — Home"
       >
         {splitToChars('AMS Safety')}
@@ -132,7 +159,7 @@ export default function Nav() {
               transition: 'color 0.25s ease',
               userSelect: 'none',
             }}
-            onClick={() => scrollToSection(item.targetId)}
+            onClick={() => handleNavClick(item.targetId)}
           >
             {splitToChars(item.label)}
           </li>

@@ -1,105 +1,15 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
+import { ViewTransition } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { PRODUCTS, CATEGORIES } from '@/lib/products';
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface Product {
-  id: string;
-  name: string;
-  category: string;
-  price: string;
-  stock: number;
-  sold: number;
-  image: string;
-}
-
-const CATEGORIES = [
-  'All Products',
-  'Head Protection',
-  'Footwear',
-  'Fire Safety',
-  'Apparel',
-  'Fall Protection',
-  'Hearing & Eye',
-];
-
-const PRODUCTS: Product[] = [
-  {
-    id: '1',
-    name: 'Vanguard Industrial Hard Hat',
-    category: 'Head Protection',
-    price: '$150.50',
-    stock: 544,
-    sold: 256,
-    image: '/ams-product-removebg-preview.webp',
-  },
-  {
-    id: '2',
-    name: 'ProShield Steel Toe Safety Boots',
-    category: 'Footwear',
-    price: '$160.40',
-    stock: 544,
-    sold: 256,
-    image: '/prod-boots.webp',
-  },
-  {
-    id: '3',
-    name: 'Titan ABC Fire Extinguisher 5kg',
-    category: 'Fire Safety',
-    price: '$120.30',
-    stock: 544,
-    sold: 256,
-    image: '/prod-extinguisher.webp',
-  },
-  {
-    id: '4',
-    name: 'High-Vis Thermal Safety Jacket',
-    category: 'Apparel',
-    price: '$120.99',
-    stock: 544,
-    sold: 256,
-    image: '/prod-jacket.webp',
-  },
-  {
-    id: '5',
-    name: 'Quantum Full-Body Fall Harness',
-    category: 'Fall Protection',
-    price: '$150.50',
-    stock: 544,
-    sold: 256,
-    image: '/prod-harness.webp',
-  },
-  {
-    id: '6',
-    name: 'Acoustic Pro Ear Defenders 34dB',
-    category: 'Hearing & Eye',
-    price: '$110.20',
-    stock: 544,
-    sold: 256,
-    image: '/prod-earmuffs.webp',
-  },
-  {
-    id: '7',
-    name: 'Stealth Z87 Clear Safety Glasses',
-    category: 'Hearing & Eye',
-    price: '$85.50',
-    stock: 544,
-    sold: 256,
-    image: '/prod-glasses.webp',
-  },
-  {
-    id: '8',
-    name: 'Apex Heavy Duty Welding Visor',
-    category: 'Head Protection',
-    price: '$175.00',
-    stock: 544,
-    sold: 256,
-    image: '/ams-product-removebg-preview.webp',
-  },
-];
+// Local mock data arrays removed, importing from src/lib/products.ts
 
 export default function ProductGridSection() {
   const [activeCategory, setActiveCategory] = useState('All Products');
@@ -196,7 +106,7 @@ export default function ProductGridSection() {
         fontFamily: 'var(--font-halyard-display-variable)',
       }}
     >
-      <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+      <div style={{ maxWidth: '1700px', margin: '0 auto' }}>
         {/* ── 1. Top Header Row ── */}
         <div style={{ marginBottom: '32px' }}>
           <h2
@@ -262,115 +172,125 @@ export default function ProductGridSection() {
         {/* ── 3. Products Cards Grid ── */}
         <div ref={gridRef} className="products-grid-4">
           {filteredProducts.map((product) => (
-            <div
+            <Link
               key={product.id}
-              className="product-card"
-              style={{
-                backgroundColor: '#ffffff',
-                borderRadius: '24px',
-                padding: '16px',
-                border: '1px solid #f0f0f0',
-                transition: 'transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease',
-                cursor: 'pointer',
-                position: 'relative',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                willChange: 'transform, opacity',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-8px) scale(1.01)';
-                e.currentTarget.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.08)';
-                const img = e.currentTarget.querySelector('.card-img') as HTMLElement;
-                if (img) img.style.transform = 'scale(1.08) translateY(-4px)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                e.currentTarget.style.boxShadow = 'none';
-                const img = e.currentTarget.querySelector('.card-img') as HTMLElement;
-                if (img) img.style.transform = 'scale(1) translateY(0)';
-              }}
+              href={`/shop/${product.id}`}
+              style={{ textDecoration: 'none', color: 'inherit' }}
             >
-              <div>
-                {/* Product Inner Image Box */}
-                <div
-                  style={{
-                    width: '100%',
-                    height: '220px',
-                    backgroundColor: '#f4f5f7',
-                    borderRadius: '18px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    padding: '20px',
-                    marginBottom: '16px',
-                    overflow: 'hidden',
-                  }}
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="card-img"
-                    width={180}
-                    height={180}
-                    loading="lazy"
-                    decoding="async"
-                    style={{
-                      maxHeight: '100%',
-                      maxWidth: '100%',
-                      objectFit: 'contain',
-                      transition: 'transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)',
-                    }}
-                  />
-                </div>
-
-                {/* Product Title */}
-                <h3
-                  style={{
-                    fontSize: '18px',
-                    fontWeight: '600',
-                    color: '#111827',
-                    marginBottom: '8px',
-                    lineHeight: 1.3,
-                  }}
-                >
-                  {product.name}
-                </h3>
-
-                {/* Price */}
-                <p
-                  style={{
-                    fontSize: '15px',
-                    fontWeight: '500',
-                    color: '#6b7280',
-                    marginBottom: '16px',
-                  }}
-                >
-                  {product.price}
-                </p>
-              </div>
-
-              {/* Stock and Sold Footer */}
               <div
+                className="product-card"
                 style={{
+                  backgroundColor: '#ffffff',
+                  borderRadius: '24px',
+                  padding: '16px',
+                  border: '1px solid #f0f0f0',
+                  transition: 'transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease',
+                  cursor: 'pointer',
+                  position: 'relative',
                   display: 'flex',
-                  alignItems: 'center',
-                  gap: '16px',
-                  fontSize: '13px',
-                  color: '#6b7280',
-                  borderTop: '1px solid #f3f4f6',
-                  paddingTop: '12px',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  willChange: 'transform, opacity',
+                  height: '100%',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-8px) scale(1.01)';
+                  e.currentTarget.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.08)';
+                  const img = e.currentTarget.querySelector('.card-img') as HTMLElement;
+                  if (img) img.style.transform = 'scale(1.08) translateY(-4px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                  e.currentTarget.style.boxShadow = 'none';
+                  const img = e.currentTarget.querySelector('.card-img') as HTMLElement;
+                  if (img) img.style.transform = 'scale(1) translateY(0)';
                 }}
               >
-                <span>
-                  Stock: <strong style={{ color: '#111827' }}>{product.stock}</strong>
-                </span>
-                <span>
-                  Sold: <strong style={{ color: '#111827' }}>{product.sold}</strong>
-                </span>
+                <div>
+                  {/* Product Inner Image Box */}
+                  <div
+                    style={{
+                      width: '100%',
+                      height: '220px',
+                      backgroundColor: '#f4f5f7',
+                      borderRadius: '18px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      padding: '20px',
+                      marginBottom: '16px',
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <ViewTransition name={`product-image-${product.id}`}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="card-img"
+                        width={180}
+                        height={180}
+                        loading="lazy"
+                        decoding="async"
+                        style={{
+                          maxHeight: '100%',
+                          maxWidth: '100%',
+                          objectFit: 'contain',
+                          transition: 'transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)',
+                        }}
+                      />
+                    </ViewTransition>
+                  </div>
+
+                  {/* Product Title */}
+                  <ViewTransition name={`product-title-${product.id}`}>
+                    <h3
+                      style={{
+                        fontSize: '18px',
+                        fontWeight: '600',
+                        color: '#111827',
+                        marginBottom: '8px',
+                        lineHeight: 1.3,
+                      }}
+                    >
+                      {product.name}
+                    </h3>
+                  </ViewTransition>
+
+                  {/* Price */}
+                  <p
+                    style={{
+                      fontSize: '15px',
+                      fontWeight: '500',
+                      color: '#6b7280',
+                      marginBottom: '16px',
+                    }}
+                  >
+                    {product.price}
+                  </p>
+                </div>
+
+                {/* Stock and Sold Footer */}
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '16px',
+                    fontSize: '13px',
+                    color: '#6b7280',
+                    borderTop: '1px solid #f3f4f6',
+                    paddingTop: '12px',
+                  }}
+                >
+                  <span>
+                    Stock: <strong style={{ color: '#111827' }}>{product.stock}</strong>
+                  </span>
+                  <span>
+                    Sold: <strong style={{ color: '#111827' }}>{product.sold}</strong>
+                  </span>
+                </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

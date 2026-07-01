@@ -171,7 +171,7 @@ export default function SectionWhyChooseUs() {
         overflow: 'hidden',
       }}
     >
-      <div style={{ maxWidth: '1300px', margin: '0 auto' }}>
+      <div style={{ maxWidth: '1700px', margin: '0 auto' }}>
         {/* ── 1. Top Centered Statement Block (Scroll-Scrubbed 3D Flip Reveal) ── */}
         <div
           ref={statementRef}

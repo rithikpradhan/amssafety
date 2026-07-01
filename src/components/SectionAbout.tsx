@@ -88,7 +88,7 @@ export default function SectionAbout() {
         overflow: 'hidden',
       }}
     >
-      <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+      <div style={{ maxWidth: '1700px', margin: '0 auto' }}>
         {/* ── 1. Top Typographic Composition Row ── */}
         <div ref={headlineRef} className="about-headline-container" style={{ position: 'relative' }}>
           {/* Line 1 */}

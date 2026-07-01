@@ -6,6 +6,7 @@
   font-display: optional;
   src: url('/fonts/PARISIAN.woff') format('woff');
 }
+
 /* DM Sans is injected async after first paint via splash screen script */
 
 @tailwind base;
@@ -72,7 +73,9 @@
 }
 
 /* ─── Reset & Base ───────────────────────────────────────────────────────── */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -82,11 +85,13 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
-html, body {
+html,
+body {
   scrollbar-width: none;
   -ms-overflow-style: none;
   overflow-x: hidden;
 }
+
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
   display: none;
@@ -105,4 +110,178 @@ body {
   height: 0;
   border: none;
   border-top: 1px dashed var(--color-cork-shadow);
+}
+
+/* ─── View Transitions & Custom Morph Keyframes ───────────────────────────── */
+::view-transition-group(*),
+::view-transition-old(*),
+::view-transition-new(*) {
+  animation-duration: 400ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  /* ultra smooth ease-out */
+}
+
+/* Specific morph adjustment to prevent pixel flicker */
+::view-transition-group(.morph) {
+  animation-duration: 450ms;
+}
+
+::view-transition-image-pair(.morph) {
+  animation-name: via-blur;
+}
+
+@keyframes via-blur {
+  0% {
+    filter: blur(0px);
+  }
+
+  30% {
+    filter: blur(2px);
+  }
+
+  100% {
+    filter: blur(0px);
+  }
+}
+
+/* Anchored header style during transitions to keep it from sliding */
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+
+::view-transition-old(site-header) {
+  display: none;
+}
+
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+/* Custom fade keyframe for general pages */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+/* Safe reduced motion override */
+@media (prefers-reduced-motion: reduce) {
+
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}
+
+/* ─── Premium B2B 3D Buttons ────────────────────────────── */
+.b2b-btn-3d {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 50px;
+  cursor: pointer;
+  text-decoration: none;
+  flex: 1;
+  min-width: 150px;
+  transition: transform 0.1s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.b2b-btn-3d .pill-body {
+  height: 42px;
+  width: 100%;
+  border-radius: 24px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  padding: 0 12px 0 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: box-shadow 0.1s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease !important;
+}
+
+.b2b-btn-3d .badge-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  position: absolute;
+  left: 0;
+  top: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  z-index: 2;
+}
+
+/* WhatsApp 3D Layout */
+.b2b-btn-3d.wa .pill-body {
+  color: #075e54;
+  box-shadow: 0 4px 0px #bbf7d0, 0 6px 12px rgba(0, 0, 0, 0.05);
+}
+
+.b2b-btn-3d.wa .badge-circle {
+  background: #25D366;
+}
+
+/* Email 3D Layout */
+.b2b-btn-3d.em .pill-body {
+  color: #1a73e8;
+  box-shadow: 0 4px 0px #bfdbfe, 0 6px 12px rgba(0, 0, 0, 0.05);
+}
+
+.b2b-btn-3d.em .badge-circle {
+  background: #1a73e8;
+}
+
+/* Hover States (Press Down Effect) */
+.b2b-btn-3d:hover {
+  transform: translateY(2.5px) !important;
+}
+
+.b2b-btn-3d:hover .badge-circle {
+  transform: scale(1.02);
+}
+
+.b2b-btn-3d.wa:hover .pill-body {
+  box-shadow: 0 1.5px 0px #bbf7d0, 0 3px 6px rgba(0, 0, 0, 0.05);
+  background-color: #fcfdfc;
+}
+
+.b2b-btn-3d.em:hover .pill-body {
+  box-shadow: 0 1.5px 0px #bfdbfe, 0 3px 6px rgba(0, 0, 0, 0.05);
+  background-color: #fcfdff;
+}
+
+@media (max-width: 480px) {
+  .enquiry-buttons-row {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+
+  .b2b-btn-3d {
+    width: 100% !important;
+  }
 }
